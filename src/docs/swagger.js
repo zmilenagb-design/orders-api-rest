@@ -5,7 +5,7 @@ const swaggerDocument = {
   info: {
     title: 'Orders API REST',
     version: '1.0.0',
-    description: 'API REST para gestión de pedidos - SENA ADSO Grupo B'
+    description: 'API REST para gestion de pedidos - SENA ADSO Grupo B'
   },
   servers: [{ url: '/api/v1', description: 'Servidor local' }],
   paths: {
@@ -18,7 +18,7 @@ const swaggerDocument = {
     },
     '/orders': {
       get: {
-        summary: 'Listar pedidos con paginación y filtros',
+        summary: 'Listar pedidos con paginacion y filtros',
         tags: ['Orders'],
         parameters: [
           { name: 'page', in: 'query', schema: { type: 'integer' } },
@@ -56,7 +56,10 @@ const swaggerDocument = {
             }
           }
         },
-        responses: { '201': { description: 'Pedido creado' }, '400': { description: 'Datos inválidos' } }
+        responses: {
+          '201': { description: 'Pedido creado' },
+          '400': { description: 'Datos invalidos' }
+        }
       }
     },
     '/orders/{orderId}': {
@@ -64,7 +67,10 @@ const swaggerDocument = {
         summary: 'Obtener detalle de un pedido',
         tags: ['Orders'],
         parameters: [{ name: 'orderId', in: 'path', required: true, schema: { type: 'integer' } }],
-        responses: { '200': { description: 'Pedido encontrado' }, '404': { description: 'No encontrado' } }
+        responses: {
+          '200': { description: 'Pedido encontrado' },
+          '404': { description: 'No encontrado' }
+        }
       },
       put: {
         summary: 'Reemplazar completamente un pedido',
@@ -82,7 +88,10 @@ const swaggerDocument = {
         summary: 'Eliminar un pedido',
         tags: ['Orders'],
         parameters: [{ name: 'orderId', in: 'path', required: true, schema: { type: 'integer' } }],
-        responses: { '204': { description: 'Pedido eliminado' }, '404': { description: 'No encontrado' } }
+        responses: {
+          '204': { description: 'Pedido eliminado' },
+          '404': { description: 'No encontrado' }
+        }
       }
     },
     '/orders/{orderId}/items': {
@@ -137,6 +146,12 @@ const swaggerDocument = {
       get: {
         summary: 'Listar productos',
         tags: ['Products'],
+        parameters: [
+          { name: 'page', in: 'query', schema: { type: 'integer' } },
+          { name: 'limit', in: 'query', schema: { type: 'integer' } },
+          { name: 'search', in: 'query', schema: { type: 'string' } },
+          { name: 'discontinued', in: 'query', schema: { type: 'boolean' } }
+        ],
         responses: { '200': { description: 'Lista de productos' } }
       }
     },
@@ -145,7 +160,35 @@ const swaggerDocument = {
         summary: 'Detalle de un producto',
         tags: ['Products'],
         parameters: [{ name: 'productId', in: 'path', required: true, schema: { type: 'integer' } }],
-        responses: { '200': { description: 'Producto encontrado' }, '404': { description: 'No encontrado' } }
+        responses: {
+          '200': { description: 'Producto encontrado' },
+          '404': { description: 'No encontrado' }
+        }
+      }
+    },
+    '/customers': {
+      get: {
+        summary: 'Listar clientes',
+        tags: ['Customers'],
+        parameters: [
+          { name: 'page', in: 'query', schema: { type: 'integer' } },
+          { name: 'limit', in: 'query', schema: { type: 'integer' } },
+          { name: 'search', in: 'query', schema: { type: 'string' } },
+          { name: 'city', in: 'query', schema: { type: 'string' } },
+          { name: 'country', in: 'query', schema: { type: 'string' } }
+        ],
+        responses: { '200': { description: 'Lista paginada de clientes' } }
+      }
+    },
+    '/customers/{customerId}': {
+      get: {
+        summary: 'Detalle de un cliente',
+        tags: ['Customers'],
+        parameters: [{ name: 'customerId', in: 'path', required: true, schema: { type: 'integer' } }],
+        responses: {
+          '200': { description: 'Cliente encontrado' },
+          '404': { description: 'No encontrado' }
+        }
       }
     }
   }
